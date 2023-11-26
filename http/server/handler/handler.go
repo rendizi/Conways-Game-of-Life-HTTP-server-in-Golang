@@ -43,16 +43,16 @@ func Decorate(next http.Handler, ds ...Decorator) http.Handler {
 	return decorated
 }
 func (w *World) String() string {
-	brownSquare := "\xF0\x9F\x9F\xAB"
-	greenSquare := "\xF0\x9F\x9F\xA9"
+	dead := "🟫"
+	alive := "🟩"
 	result := ""
 
 	for i := 0; i < w.Height; i++ {
 		for j := 0; j < w.Width; j++ {
 			if w.Cells[i][j] {
-				result += greenSquare
+				result += alive
 			} else {
-				result += brownSquare
+				result += dead
 			}
 		}
 		if i != w.Height-1 {

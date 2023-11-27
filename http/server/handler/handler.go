@@ -9,6 +9,8 @@ import (
 
 type Decorator func(http.Handler) http.Handler
 
+var prev = "something"
+
 // object to store the game state
 type LifeStates struct {
 	service.LifeService
@@ -74,7 +76,10 @@ func (ls *LifeStates) nextState(w http.ResponseWriter, r *http.Request) {
 	}
 
 	worldString := world.String()
-
+	if worldString == prev {
+		worldString = "Game over"
+	}
+	prev = worldString
 	_, err := fmt.Fprint(w, worldString)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
